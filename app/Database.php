@@ -23,14 +23,9 @@ class Database
         );
     }
 
-    public function query(string $query, ?string $class, array $params = []): PDOStatement
+    public function query(string $query, array $params = []): PDOStatement
     {
         $prepare = $this->db->prepare($query);
-
-        if (!is_null($class)) {
-            $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
-        }
-
         $prepare->execute($params);
 
         return $prepare;
