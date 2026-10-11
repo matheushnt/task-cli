@@ -23,7 +23,7 @@ final class ListTasksCommand
         $filter = null;
 
         if ($status !== null) {
-            $filter = TaskStatus::tryFrom(strtoupper($status));
+            $filter = TaskStatus::tryFrom(strtolower($status));
 
             if ($filter === null) {
                 $io->error("Status inválido \"$status\". Use: pending ou completed.");
@@ -43,8 +43,8 @@ final class ListTasksCommand
             array_map(fn($task): array => [
                 $task->id,
                 $task->title,
-                $task->status,
-                $task->created_at->format('d/m/Y H:i')
+                $task->status->value,
+                $task->created_at->setTimezone("America/Sao_Paulo")->format("d/m/Y H:i")
             ], $tasks)
         );
 
