@@ -19,7 +19,7 @@ class Task
         return new self(
             id: $row["id"],
             title: $row["title"],
-            status: TaskStatus::from($row["status"]),
+            status: TaskStatus::from(strtolower($row["status"])),
             created_at: CarbonImmutable::parse($row["created_at"])
         );
     }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Database;
 use App\Entity\Task;
 use App\Enum\TaskStatus;
+use RuntimeException;
 
 final class TaskRepository
 {
@@ -17,9 +18,23 @@ final class TaskRepository
 
         if ($status !== null) {
             $sql .= " WHERE t.status = :status";
-            return $this->db->query($sql, Task::class, ["status" => $status->value])->fetchAll();
+            $rows = $this->db->query($sql, ["status" => $status->value])->fetchAll();
         } else {
-            return $this->db->query($sql, Task::class)->fetchAll();
+            $rows = $this->db->query($sql)->fetchAll();
         }
+
+        return array_map(fn(array $row): Task => Task::fromRow($row), $rows);
+    }
+
+    public function create(string $title): Task
+    {
+        $sql = "INSERT INTO tasks (title) VALUES (:title) RETURNING id, title, status, created_at";
+        $row = $this->db->query($sql, ["title" => $title])->fetch();
+
+        if ($row === false) {
+            throw new RuntimeException("A tarefa criada não foi retornada pelo banco de dados.");
+        }
+
+        return Task::fromRow($row);
     }
 }
