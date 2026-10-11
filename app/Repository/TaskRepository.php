@@ -11,6 +11,17 @@ final class TaskRepository
 {
     public function __construct(private readonly Database $db) {}
 
+    public function findById(int $id): ?Task
+    {
+        $sql = "SELECT * FROM tasks t WHERE t.id = :id";
+        $row = $this->db->query($sql, ["id" => $id])->fetch();
+
+        if ($row === false) {
+            return null;
+        }
+
+        return Task::fromRow($row);
+    }
 
     public function findAll(?TaskStatus $status = null): array
     {
@@ -36,5 +47,13 @@ final class TaskRepository
         }
 
         return Task::fromRow($row);
+    }
+
+    public function delete(int $id): bool
+    {
+        $sql = "DELETE FROM tasks WHERE id = :id";
+        $stmt = $this->db->query($sql, ["id" => $id]);
+
+        return $stmt->rowCount() > 0;
     }
 }
