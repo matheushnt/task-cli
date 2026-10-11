@@ -11,5 +11,8 @@
       "App\\": "app/"
     }
   },
-  "require": {}
+  "require": {
+    "nesbot/carbon": "^3.14",
+    "symfony/console": "^8.1"
+  }
 }
