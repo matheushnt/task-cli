@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(name: 'task:complete', description: 'Completar uma tarefa')]
-class CompleteTaskCommand
+final class CompleteTaskCommand
 {
     public function __construct(private readonly TaskRepository $taskRepository) {}
 

@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(name: 'task:delete', description: 'Excluir uma tarefa')]
-class DeleteTaskCommand
+final class DeleteTaskCommand
 {
     public function __construct(private readonly TaskRepository $taskRepository) {}
 

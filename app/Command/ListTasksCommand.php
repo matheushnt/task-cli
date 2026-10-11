@@ -9,7 +9,7 @@ use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'task:list', description: 'Lista as tarefas')]
+#[AsCommand(name: 'task:list', description: 'Listar as tarefas')]
 final class ListTasksCommand
 {
     public function __construct(private readonly TaskRepository $taskRepository) {}

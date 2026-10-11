@@ -8,7 +8,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'task:add', description: 'Cria uma nova tarefa')]
+#[AsCommand(name: 'task:add', description: 'Criar uma nova tarefa')]
 final class AddTaskCommand
 {
     private const int MAX_TITLE_LENGTH = 150;
