@@ -23,7 +23,7 @@ class Database
         );
     }
 
-    public function query(string $query, ?string $class, array $params = []): PDOStatement | false
+    public function query(string $query, ?string $class, array $params = []): PDOStatement
     {
         $prepare = $this->db->prepare($query);
 
@@ -31,7 +31,9 @@ class Database
             $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
         }
 
-        return $prepare->execute($params);
+        $prepare->execute($params);
+
+        return $prepare;
     }
 
     private function getDsn(): string
