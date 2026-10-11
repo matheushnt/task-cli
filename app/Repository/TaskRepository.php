@@ -56,4 +56,15 @@ final class TaskRepository
 
         return $stmt->rowCount() > 0;
     }
+
+    public function complete(int $id): bool
+    {
+        $sql = "UPDATE tasks SET status = :status WHERE id = :id";
+        $stmt = $this->db->query($sql, [
+            "status" => TaskStatus::COMPLETED->value,
+            "id" => $id,
+        ]);
+
+        return $stmt->rowCount() > 0;
+    }
 }

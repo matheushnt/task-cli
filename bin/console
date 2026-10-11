@@ -10,6 +10,7 @@ use App\Repository\TaskRepository;
 use App\Command\ListTasksCommand;
 use App\Command\AddTaskCommand;
 use App\Command\DeleteTaskCommand;
+use App\Command\CompleteTaskCommand;
 
 $repository = new TaskRepository(new Database);
 
@@ -17,4 +18,5 @@ $app = new Application("Task CLI", "1.0.0");
 $app->addCommand(new ListTasksCommand($repository));
 $app->addCommand(new AddTaskCommand($repository));
 $app->addCommand(new DeleteTaskCommand($repository));
+$app->addCommand(new CompleteTaskCommand($repository));
 $app->run();
